@@ -1,18 +1,7 @@
-/**
- * Dashboard Module
- * Task 3: Dynamic Dashboard Cards
- * - Display dashboard statistics using JavaScript arrays/objects
- * - Inject content dynamically into HTML
- * - Use loops to render cards
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     renderDashboardCards();
 });
 
-/**
- * Dashboard statistics data
- */
 const dashboardStats = [
     {
         title: 'Total Courses',
@@ -40,27 +29,19 @@ const dashboardStats = [
     }
 ];
 
-/**
- * Render dashboard cards dynamically
- */
 const renderDashboardCards = () => {
     const dashboardCardsContainer = document.getElementById('dashboardCards');
     
     if (!dashboardCardsContainer) return;
     
-    // Clear existing content
     dashboardCardsContainer.innerHTML = '';
     
-    // Loop through stats and create cards
     dashboardStats.forEach(stat => {
         const card = createDashboardCard(stat);
         dashboardCardsContainer.appendChild(card);
     });
 };
 
-/**
- * Create a dashboard card element
- */
 const createDashboardCard = (stat) => {
     const card = document.createElement('div');
     card.className = 'dashboard-card';
@@ -73,4 +54,3 @@ const createDashboardCard = (stat) => {
     
     return card;
 };
-

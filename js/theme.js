@@ -1,12 +1,3 @@
-/**
- * Theme Switcher Module
- * Task 8: Theme Switcher (Light / Dark Mode)
- * - Toggle between light and dark themes
- * - Persist theme using localStorage
- * - Restore theme on page load
- */
-
-// Initialize theme on page load
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initThemeToggle();
@@ -14,18 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigationActiveState();
 });
 
-/**
- * Initialize theme from localStorage or default to light
- */
 const initTheme = () => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     updateThemeToggleIcon(savedTheme);
 };
 
-/**
- * Initialize theme toggle button
- */
 const initThemeToggle = () => {
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
@@ -33,9 +18,6 @@ const initThemeToggle = () => {
     }
 };
 
-/**
- * Toggle between light and dark theme
- */
 const toggleTheme = () => {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -45,9 +27,6 @@ const toggleTheme = () => {
     updateThemeToggleIcon(newTheme);
 };
 
-/**
- * Update theme toggle icon based on current theme
- */
 const updateThemeToggleIcon = (theme) => {
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
@@ -55,10 +34,6 @@ const updateThemeToggleIcon = (theme) => {
     }
 };
 
-/**
- * Initialize sidebar toggle for mobile view
- * Task 2: Sidebar Toggle (Responsive UI)
- */
 const initSidebarToggle = () => {
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
@@ -68,7 +43,6 @@ const initSidebarToggle = () => {
             sidebar.classList.toggle('open');
         });
         
-        // Close sidebar when clicking outside on mobile
         document.addEventListener('click', (e) => {
             if (window.innerWidth <= 768) {
                 if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
@@ -79,10 +53,6 @@ const initSidebarToggle = () => {
     }
 };
 
-/**
- * Initialize navigation active state
- * Task 9: Navigation Active State
- */
 const initNavigationActiveState = () => {
     const navLinks = document.querySelectorAll('.nav-link[data-page]');
     const currentPage = getCurrentPage();
@@ -97,9 +67,6 @@ const initNavigationActiveState = () => {
     });
 };
 
-/**
- * Get current page name from URL
- */
 const getCurrentPage = () => {
     const path = window.location.pathname;
     const filename = path.split('/').pop() || 'index.html';
@@ -110,4 +77,3 @@ const getCurrentPage = () => {
     
     return filename.replace('.html', '');
 };
-

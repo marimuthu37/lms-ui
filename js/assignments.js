@@ -1,20 +1,7 @@
-/**
- * Assignments Module
- * Task 5: Assignment Status Management
- * Task 6: Assignment Submission Simulation
- * - Store assignment data in JavaScript
- * - Display assignments dynamically
- * - Change status based on due date
- * - Handle assignment submission
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     renderAssignments();
 });
 
-/**
- * Assignment data array
- */
 const assignments = [
     {
         id: 1,
@@ -58,9 +45,6 @@ const assignments = [
     }
 ];
 
-/**
- * Determine assignment status based on due date
- */
 const determineStatus = (dueDate, submitted) => {
     if (submitted) {
         return 'submitted';
@@ -82,9 +66,6 @@ const determineStatus = (dueDate, submitted) => {
     }
 };
 
-/**
- * Format date for display
- */
 const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { 
@@ -94,44 +75,33 @@ const formatDate = (dateString) => {
     });
 };
 
-/**
- * Render all assignments
- */
 const renderAssignments = () => {
     const assignmentsList = document.getElementById('assignmentsList');
     
     if (!assignmentsList) return;
     
-    // Clear existing content
     assignmentsList.innerHTML = '';
     
-    // Update status for each assignment based on current date
     assignments.forEach(assignment => {
         if (!assignment.submitted) {
             assignment.status = determineStatus(assignment.dueDate, assignment.submitted);
         }
     });
     
-    // Loop through assignments and create cards
     assignments.forEach(assignment => {
         const assignmentCard = createAssignmentCard(assignment);
         assignmentsList.appendChild(assignmentCard);
     });
 };
 
-/**
- * Create an assignment card element
- */
 const createAssignmentCard = (assignment) => {
     const card = document.createElement('div');
     card.className = 'assignment-card';
     card.setAttribute('data-assignment-id', assignment.id);
     
-    // Determine status class and text
     const statusClass = assignment.status;
     const statusText = assignment.status.charAt(0).toUpperCase() + assignment.status.slice(1);
     
-    // Create assignment info section
     const infoDiv = document.createElement('div');
     infoDiv.className = 'assignment-info';
     infoDiv.innerHTML = `
@@ -141,7 +111,6 @@ const createAssignmentCard = (assignment) => {
         <span class="assignment-status ${statusClass}">${statusText}</span>
     `;
     
-    // Create action section
     const actionDiv = document.createElement('div');
     actionDiv.className = 'assignment-actions';
     
@@ -150,7 +119,6 @@ const createAssignmentCard = (assignment) => {
     submitBtn.textContent = assignment.submitted ? 'Submitted' : 'Submit Assignment';
     submitBtn.disabled = assignment.submitted;
     
-    // Add event listener for submission
     if (!assignment.submitted) {
         submitBtn.addEventListener('click', () => {
             handleAssignmentSubmission(assignment.id);
@@ -165,10 +133,6 @@ const createAssignmentCard = (assignment) => {
     return card;
 };
 
-/**
- * Handle assignment submission
- * Task 6: Assignment Submission Simulation
- */
 const handleAssignmentSubmission = (assignmentId) => {
     const assignment = assignments.find(a => a.id === assignmentId);
     
@@ -176,21 +140,17 @@ const handleAssignmentSubmission = (assignmentId) => {
         return;
     }
     
-    // Update assignment status
     assignment.submitted = true;
     assignment.status = 'submitted';
     
-    // Update UI
     const card = document.querySelector(`[data-assignment-id="${assignmentId}"]`);
     if (card) {
-        // Update status badge
         const statusBadge = card.querySelector('.assignment-status');
         if (statusBadge) {
             statusBadge.textContent = 'Submitted';
             statusBadge.className = 'assignment-status submitted';
         }
         
-        // Update button
         const submitBtn = card.querySelector('.btn');
         if (submitBtn) {
             submitBtn.textContent = 'Submitted';
@@ -198,23 +158,17 @@ const handleAssignmentSubmission = (assignmentId) => {
         }
     }
     
-    // Show success alert
     showAlert('success', `Assignment "${assignment.title}" submitted successfully!`);
 };
 
-/**
- * Show alert notification
- */
 const showAlert = (type, message) => {
     const alertContainer = document.getElementById('alertContainer');
     if (!alertContainer) return;
     
-    // Create alert element
     const alert = document.createElement('div');
     alert.className = `alert alert-${type}`;
     alert.textContent = message;
     
-    // Add close button
     const closeBtn = document.createElement('button');
     closeBtn.textContent = '×';
     closeBtn.style.cssText = 'background: none; border: none; color: inherit; font-size: 20px; cursor: pointer; padding: 0 10px;';
@@ -225,11 +179,9 @@ const showAlert = (type, message) => {
     alert.appendChild(closeBtn);
     alertContainer.appendChild(alert);
     
-    // Auto-hide after 3 seconds
     setTimeout(() => {
         if (alert.parentNode) {
             alert.remove();
         }
     }, 3000);
 };
-
